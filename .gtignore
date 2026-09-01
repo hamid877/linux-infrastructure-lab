@@ -1,0 +1,15 @@
+# Logs
+logs/*
+!logs/.gitkeep
+
+# Temporary files
+*.swp
+*.tmp
+*.bak
+
+# Bash history dumps
+.history
+
+# OS files
+.DS_Store
+Thumbs.db
