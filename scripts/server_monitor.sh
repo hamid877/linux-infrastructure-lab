@@ -19,7 +19,13 @@ get_disk_usage() {
 }
 
 get_top_cpu_process() {
-    ps -eo comm,%cpu --sort=-%cpu | awk 'NR==2 {print $1 " (" $2 "%)"}'
+    ps -eo comm,%cpu --sort=-%cpu |
+    awk '
+        NR>1 &&
+        $1 !~ /^(ps|awk|grep|sed|bash|top|kworker|migration|rcu_.*|systemd-hostnam)$/ {
+            print $1 " (" $2 "%)"
+            exit
+        }'
 }
 
 get_top_mem_process() {
@@ -34,9 +40,28 @@ check_service() {
     fi
 }
 
+health_status() {
+    VALUE=$1
+    WARNING=$2
+    CRITICAL=$3
+
+    if (( $(echo "$VALUE >= $CRITICAL" | bc -l) )); then
+        echo "CRITICAL"
+    elif (( $(echo "$VALUE >= $WARNING" | bc -l) )); then
+        echo "WARNING"
+    else
+        echo "PASS"
+    fi
+}
+
 CPU=$(get_cpu_usage)
 MEM=$(get_memory_usage)
 DISK=$(get_disk_usage)
+CPU_STATUS=$(health_status "$CPU" 70 90)
+MEM_STATUS=$(health_status "$MEM" 75 90)
+DISK_VALUE=$(echo "$DISK" | tr -d '%')
+DISK_STATUS=$(health_status "$DISK_VALUE" 80 90)
+
 
 echo "========================================="
 echo "        SERVER HEALTH REPORT"
