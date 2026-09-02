@@ -1,0 +1,40 @@
+===========================================
+        INCIDENT RESPONSE REPORT
+===========================================
+
+Generated          : 2026-09-02T10:05:03+00:00
+Hostname           : dc-lab-server
+Kernel             : 7.0.0-30-generic
+
+OVERALL SEVERITY   : WARNING
+
+INCIDENT SUMMARY
+----------------
+PASS      No failed systemd services.
+WARNING   SSH authentication failures detected.
+WARNING   Nginx permission error detected.
+PASS      Disk usage normal (52%).
+
+SSH ANALYSIS
+------------
+Failed logins        : 1
+Latest user          : 10.0.2.2
+Source IP            : 57012
+Latest event         : Sep 01 07:18:31 dc-lab-server sshd-session[4512]: Failed password for hamid from 10.0.2.2 port 57012 ssh2
+
+NGINX ANALYSIS
+--------------
+Recent errors        : 1
+Severity             : WARNING
+Latest error         : 2026/09/01 08:15:59 [error] 5736#5736: *1 open() "/var/www/html/secret.html" failed (13: Permission denied), client: ::1, server: _, request: "GET /secret.html HTTP/1.1", host: "localhost"
+
+FAILED SERVICES
+---------------
+None
+
+DISK HEALTH
+-----------
+Filesystem                         Size  Used Avail Use% Mounted on
+/dev/mapper/ubuntu--vg-ubuntu--lv   11G  5.3G  4.9G  52% /
+
+===========================================
