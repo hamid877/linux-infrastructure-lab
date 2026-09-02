@@ -1,0 +1,26 @@
+===========================================
+        INCIDENT RESPONSE REPORT
+===========================================
+
+Generated       : 2026-09-01T15:50:13+00:00
+Hostname        : dc-lab-server
+
+FAILED SERVICES
+---------------
+None
+
+SSH FAILURES
+------------
+Sep 01 07:18:31 dc-lab-server sshd-session[4512]: Failed password for hamid from 10.0.2.2 port 57012 ssh2
+
+NGINX ERRORS
+------------
+2026/09/01 07:25:32 [notice] 4968#4968: using inherited sockets from "5;6;"
+2026/09/01 08:15:59 [error] 5736#5736: *1 open() "/var/www/html/secret.html" failed (13: Permission denied), client: ::1, server: _, request: "GET /secret.html HTTP/1.1", host: "localhost"
+
+DISK HEALTH
+-----------
+Filesystem                         Size  Used Avail Use% Mounted on
+/dev/mapper/ubuntu--vg-ubuntu--lv   11G  5.3G  4.9G  52% /
+
+===========================================
